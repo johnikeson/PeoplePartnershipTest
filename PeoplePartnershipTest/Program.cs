@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using PeoplePartnershipTest.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,10 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<Cont>();
+builder.Services.AddDbContext<Cont>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("StudioConnection"));
+});
 
 var app = builder.Build();
 
