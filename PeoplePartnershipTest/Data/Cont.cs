@@ -9,12 +9,7 @@ namespace PeoplePartnershipTest.Data
         public DbSet<StudioItemType> StudioItemTypes { get; set; }
         public Cont(DbContextOptions<Cont> options) : base(options) { }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=studio;Trusted_Connection=True;MultipleActiveResultSets=true;Encrypt=False;TrustServerCertificate=True;Integrated Security=SSPI;");
-         
-        }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
