@@ -5,10 +5,12 @@ using PeoplePartnershipTest.DTOs;
 using Microsoft.EntityFrameworkCore;
 using PeoplePartnershipTest.Data;
 using AutoMapper;
+using PeoplePartnershipTest.Library;
+using PeoplePartnershipTest.Interfaces;
 
 namespace PeoplePartnershipTest
 {
-    public class InterfaceWithDatabase
+    public class InterfaceWithDatabase : IInterfaceWithDatabase
     {
         public InterfaceWithDatabase()
         {
@@ -21,7 +23,7 @@ namespace PeoplePartnershipTest
 
             IConfigurationRoot configuration = builder.Build();
 
-            string conn = configuration.GetConnectionString("StudioConnection");
+            string? conn = configuration.GetConnectionString("StudioConnection");
 
             var optionsBuilder = new DbContextOptionsBuilder<Cont>();
             optionsBuilder.UseSqlServer(conn);
@@ -58,7 +60,7 @@ namespace PeoplePartnershipTest
 
             IConfigurationRoot configuration = builder.Build();
 
-            string conn = configuration.GetConnectionString("StudioConnection");
+            string? conn = configuration.GetConnectionString("StudioConnection");
 
             var optionsBuilder = new DbContextOptionsBuilder<Cont>();
             optionsBuilder.UseSqlServer(conn);
@@ -89,7 +91,7 @@ namespace PeoplePartnershipTest
 
             IConfigurationRoot configuration = builder.Build();
 
-            string conn = configuration.GetConnectionString("StudioConnection");
+            string? conn = configuration.GetConnectionString("StudioConnection");
 
             var optionsBuilder = new DbContextOptionsBuilder<Cont>();
             optionsBuilder.UseSqlServer(conn);
@@ -107,6 +109,7 @@ namespace PeoplePartnershipTest
                 .Include(type => type.StudioItemType)
                 .FirstOrDefaultAsync();
 
+
                 var serviceResponse = new ServiceResponse<GetStudioItemDto>
                 {
                     Data = _mapper.Map<GetStudioItemDto>(item),
@@ -123,7 +126,7 @@ namespace PeoplePartnershipTest
 
             IConfigurationRoot configuration = builder.Build();
 
-            string conn = configuration.GetConnectionString("StudioConnection");
+            string? conn = configuration.GetConnectionString("StudioConnection");
 
             var optionsBuilder = new DbContextOptionsBuilder<Cont>();
             optionsBuilder.UseSqlServer(conn);
@@ -174,7 +177,7 @@ namespace PeoplePartnershipTest
 
             IConfigurationRoot configuration = builder.Build();
 
-            string conn = configuration.GetConnectionString("StudioConnection");
+            string? conn = configuration.GetConnectionString("StudioConnection");
 
             var optionsBuilder = new DbContextOptionsBuilder<Cont>();
             optionsBuilder.UseSqlServer(conn);
@@ -240,44 +243,4 @@ namespace PeoplePartnershipTest
         }
     }
 
-    public class StudioItem
-    {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int StudioItemId { get; set; }
-        public DateTime Acquired { get; set; }
-        public DateTime? Sold { get; set; } = null;
-        [Required]
-        public string Name { get; set; }
-        [Required]
-        public string Description { get; set; }
-        [Required]
-        public string SerialNumber { get; set; }
-        public decimal Price { get; set; } //= 10.00M;
-        public decimal? SoldFor { get; set; } //= 0M;
-        public bool Eurorack { get; set; } //= false;
-        [Required]
-        public int StudioItemTypeId { get; set; }
-        public StudioItemType StudioItemType { get; set; }
-
-
-    }
-
-    public class StudioItemType
-    {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int StudioItemTypeId { get; set; }
-        [Required]
-        public string Value { get; set; }
-        [JsonIgnore]
-        public ICollection<StudioItem> StudioItem { get; set; }
-    }
-
-    public class ServiceResponse<T>
-    {
-        public T Data { get; set; }
-
-        public bool Success { get; set; } = false;
-
-        public string Message { get; set; } = null;
-    }
 }

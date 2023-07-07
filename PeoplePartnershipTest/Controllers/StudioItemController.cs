@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PeoplePartnershipTest.DTOs;
+using PeoplePartnershipTest.Interfaces;
+using PeoplePartnershipTest.Library;
 
 namespace PeoplePartnershipTest.Controllers
 {
@@ -8,15 +10,15 @@ namespace PeoplePartnershipTest.Controllers
     [ApiController]
     public class StudioItemController : ControllerBase
     {
-        public StudioItemController()
+        private readonly IInterfaceWithDatabase _iwd;
+        public StudioItemController(IInterfaceWithDatabase interfaceWithDatabase)
         {
-
+            _iwd = interfaceWithDatabase;
         }
 
         [HttpGet("GetAll")]
         public async Task<IActionResult> Get()
         {
-            InterfaceWithDatabase _iwd = new InterfaceWithDatabase();
 
             return Ok(await _iwd.GetAllStudioHeaderItems());
         }
@@ -24,15 +26,15 @@ namespace PeoplePartnershipTest.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            InterfaceWithDatabase _iwd = new InterfaceWithDatabase();
-
-            return Ok(await _iwd.GetStudioItemById(id));
+          
+            var responce = await _iwd.GetStudioItemById(id);
+            return responce.Data != null? Ok(responce) : NotFound();
+            
         }
 
         [HttpPost]
         public async Task<IActionResult> Add(AddStudioItemDto studioItem)
         {
-            InterfaceWithDatabase _iwd = new InterfaceWithDatabase();
 
             return Ok(await _iwd.AddStudioItem(studioItem));
         }
@@ -40,24 +42,18 @@ namespace PeoplePartnershipTest.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(UpdateStudioItemDto studioItem)
         {
-            InterfaceWithDatabase _iwd = new InterfaceWithDatabase();
-
             return Ok(await _iwd.UpdateStudioItem(studioItem));
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            InterfaceWithDatabase _iwd = new InterfaceWithDatabase();
-
             return Ok(await _iwd.DeleteStudioItem(id));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetStudioItemTypes()
         {
-            InterfaceWithDatabase _iwd = new InterfaceWithDatabase();
-
             return Ok(await _iwd.GetAllStudioItemTypes());
         }
     }
