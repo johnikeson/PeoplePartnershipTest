@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using PeoplePartnershipTest;
 using PeoplePartnershipTest.Data;
+using PeoplePartnershipTest.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +15,7 @@ builder.Services.AddDbContext<Cont>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("StudioConnection"));
 });
+builder.Services.AddScoped<IInterfaceWithDatabase,InterfaceWithDatabase>();
 
 var app = builder.Build();
 

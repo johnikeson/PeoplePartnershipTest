@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using PeoplePartnershipTest.Library;
 
 namespace PeoplePartnershipTest.DTOs
 {

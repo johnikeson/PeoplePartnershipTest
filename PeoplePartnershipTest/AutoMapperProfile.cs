@@ -1,5 +1,6 @@
 ﻿using PeoplePartnershipTest.DTOs;
 using AutoMapper;
+using PeoplePartnershipTest.Library;
 
 namespace PeoplePartnershipTest
 {
