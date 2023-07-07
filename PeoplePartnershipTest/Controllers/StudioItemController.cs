@@ -20,8 +20,6 @@ namespace PeoplePartnershipTest.Controllers
         public async Task<IActionResult> Get()
         {
 
-            //InterfaceWithDatabase iwd = await _iwd.GetAllStudioHeaderItems();
-
             return Ok(await _iwd.GetAllStudioHeaderItems());
         }
 
@@ -44,24 +42,18 @@ namespace PeoplePartnershipTest.Controllers
         [HttpPut]
         public async Task<IActionResult> Update(UpdateStudioItemDto studioItem)
         {
-            //IInterfaceWithDatabase _iwd = Factory.CreateInterfaceWithDatabase();
-
             return Ok(await _iwd.UpdateStudioItem(studioItem));
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            //IInterfaceWithDatabase _iwd = Factory.CreateInterfaceWithDatabase();
-
             return Ok(await _iwd.DeleteStudioItem(id));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetStudioItemTypes()
         {
-            //IInterfaceWithDatabase _iwd = Factory.CreateInterfaceWithDatabase();
-
             return Ok(await _iwd.GetAllStudioItemTypes());
         }
     }

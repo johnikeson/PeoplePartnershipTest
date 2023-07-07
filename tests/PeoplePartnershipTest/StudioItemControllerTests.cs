@@ -33,12 +33,11 @@ namespace PeoplePartnershipTest.Tests
 
             //Act
             var result = await _sut.GetById(studioItemID).ConfigureAwait(false);
-            //var expected = studioItemID.ToString();
 
             //Assert
            Assert.NotNull(result);
            //Assert.IsAssignableFrom<ServiceResponse<GetStudioItemDto>>(result);
-           
+           //Assert.IsType<ServiceResponse<GetStudioItemDto>>(result);
         }
     }
 }
